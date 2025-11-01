@@ -1,16 +1,41 @@
-# React + Vite
+### Escuela Colombiana de Ingeniería
+### Arquiecturas de Software
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Repositorio Frontend Parcial Practico ARSW
 
-Currently, two official plugins are available:
+### GUIA
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Para este repositorio nos guiamos del tutorial
 
-## React Compiler
+> Aprenda a construir un Juego Tic Tac Toe siguiendo el tutorial que se indica aquí: https://reactjs.org/tutorial/tutorial.html#before-we-start-the-tutorial
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Funcionamiento
 
-## Expanding the ESLint configuration
+#### Instalacion
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> npm install
+
+> npm run dev 
+
+Luego podremos ingresar al host donde estara corriendo el proyecto ( ej, http://localhost:5173/) y veremos lo siguiente:
+
+![alt text](/public/img/image-3.png)
+
+Al ingresar veremos el juego ya funcionando.
+
+***El juego puede acabar de tres formas, (Gana X, Gana O, Empate)***
+
+#### Gana X
+
+
+![alt text](public/img/image.png)
+
+#### Gana O
+
+![alt text](/public/img/image-1.png)
+
+#### Empate
+
+![alt text](/public/img/image-2.png)
+
+**Al lado del tablero se encuentran los movimientos realizados durante la partida, al hacer click en estos se nos dirigira al momento de la partida en ese punto**
