@@ -39,3 +39,6 @@ Al ingresar veremos el juego ya funcionando.
 ![alt text](/public/img/image-2.png)
 
 **Al lado del tablero se encuentran los movimientos realizados durante la partida, al hacer click en estos se nos dirigira al momento de la partida en ese punto**
+
+
+## NOTA: En este README solo esta documentado el contenido y funcionamiento del juego para la entrega inicial. No se encuentran documentadas las modificaciones del Parcial
