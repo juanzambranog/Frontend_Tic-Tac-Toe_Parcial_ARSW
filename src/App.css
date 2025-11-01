@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  flex-wrap: wrap;
+  max-width: 900px;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.status {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  width: 300px;
+  height: 00px;
+  border: 2px solid #222;
+  background-color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.square:hover {
+  background-color: #e8f7ff;
+  transform: scale(1.05);
+}
+
+.square.highlight {
+  background-color: #b3ffb3;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { background-color: #aaffaa; }
+  50% { background-color: #88ee88; }
+  100% { background-color: #aaffaa; }
+}
+
+.winner {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1a7f37;
+  background-color: #e8f5e9;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.game-info ol {
+  list-style: decimal;
+  padding-left: 20px;
+}
+
+.game-info button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 4px 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+.game-info button:hover {
+  background-color: #0056b3;
+}
+
+.current-move {
+  display: inline-block;
+  margin: 4px 0;
+  font-style: italic;
+  color: #555;
+}
+
+@media (max-width: 700px) {
+  .game {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .square {
+    width: 80px;
+    height: 80px;
+    font-size: 1.5rem;
+    line-height: 80px;
+  }
+
+  .game-info {
+    max-height: none;
+  }
+}
