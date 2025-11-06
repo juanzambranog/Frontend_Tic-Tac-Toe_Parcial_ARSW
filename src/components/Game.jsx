@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import SockJS from 'sockjs-client'
 import Board from './Board'
 import { calculateWinner } from '../utils/gameUtils'
 
@@ -9,7 +10,6 @@ export default function Game() {
 
   const xIsNext = currentMove % 2 === 0
   const currentSquares = history[currentMove]
-
   const { winner, line } = calculateWinner(currentSquares)
 
 
@@ -17,7 +17,7 @@ export default function Game() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
 
-    if (socket && socket.readyState === WebSocket.OPEN) {
+    if (socket) {
       socket.send(JSON.stringify({ type: "RESET" }));
     }
   }
@@ -28,14 +28,14 @@ export default function Game() {
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
 
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      // Enviar jugada al backend como un tablero completo o índice
+    if (socket) {
       const index = nextSquares.findIndex((val, i) => val !== currentSquares[i]);
       socket.send(JSON.stringify({
         type: "MOVE",
         index: index,
         board: nextSquares
-      }));    }
+      }));
+    }
   }
 
 
@@ -45,36 +45,42 @@ export default function Game() {
 
 
   //conexion websocket
-  useEffect(() => {
-    const ws = new WebSocket("wss://websockets-h2b5d4duhddmh2er.westeurope-01.azurewebsites.net/game");
-    setSocket(ws);
+useEffect(() => {
+    // Usa la URL de tu backend (sin /game, SockJS lo agrega)
+    const sock = new SockJS("https://websockets-h2b5d4duhddmh2er.westeurope-01.azurewebsites.net/game");
     
-
-    ws.onopen = () => {
-      console.log("Conectado al servidor WebSocket");
+    sock.onopen = () => {
+      console.log("✅ Conectado al servidor WebSocket");
+      setSocket(sock);
     };
 
-    ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
+    sock.onmessage = (event) => {
+      console.log("📨 Mensaje recibido:", event.data);
+      const data = JSON.parse(event.data);
 
-    if (data.type === "RESET") {
-      setHistory([Array(9).fill(null)]);
-      setCurrentMove(0);
-      return;
-    }
+      if (data.type === "RESET") {
+        setHistory([Array(9).fill(null)]);
+        setCurrentMove(0);
+        return;
+      }
 
-    if (data.type === "MOVE" && data.board) {
-      setHistory([data.board]);
-      setCurrentMove(0);
-    }
+      if (data.type === "MOVE" && data.board) {
+        setHistory([data.board]);
+        setCurrentMove(0);
+      }
     };
 
-    ws.onclose = () => {
-      console.log("Conexión WebSocket cerrada");
+    sock.onerror = (error) => {
+      console.error("❌ Error WebSocket:", error);
     };
 
-    return () => ws.close();
+    sock.onclose = () => {
+      console.log("🔌 Conexión WebSocket cerrada");
+    };
+
+    return () => sock.close();
   }, []);
+
 
 
   const moves = history.map((squares, move) => {
