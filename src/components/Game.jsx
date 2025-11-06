@@ -48,6 +48,7 @@ export default function Game() {
   useEffect(() => {
     const ws = new WebSocket("wss://websockets-h2b5d4duhddmh2er.westeurope-01.azurewebsites.net/game");
     setSocket(ws);
+    
 
     ws.onopen = () => {
       console.log("Conectado al servidor WebSocket");
