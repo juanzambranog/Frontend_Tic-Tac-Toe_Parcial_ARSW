@@ -20,19 +20,28 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build
 
+      - name: Copy web.config to dist
+        run: |
+          if [ -f web.config ]; then
+            cp web.config dist/
+          fi
+
+      - name: Zip dist folder
+        run: |
+          cd dist
+          zip -r ../deploy.zip .
+          cd ..
+
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifact
-          # Ajusta esto si tu build se genera en "build" o "dist"
-          path: |
-            dist
-            build
+          name: node-app
+          path: deploy.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,7 +54,12 @@ jobs:
       - name: Download artifact from build
         uses: actions/download-artifact@v4
         with:
-          name: build-artifact
+          name: node-app
+
+      - name: Unzip artifact
+        run: |
+          mkdir -p deploy
+          unzip deploy.zip -d deploy
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -59,4 +73,4 @@ jobs:
         with:
           app-name: 'FrontendTicTacToe'
           slot-name: 'Production'
-          package: .
+          package: deploy
